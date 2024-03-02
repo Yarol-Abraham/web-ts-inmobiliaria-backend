@@ -228,7 +228,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"Banos\": 3,\r\n  \"Ciudad\": \"Madrid\"\r\n}",
+					"raw": "{\r\n  \"Banos\": 3,\r\n  \"Ciudad\": \"Madrid\"\r\n}\r\n\r\n/*\r\n   Latitud: number;\r\n    Longitud: number;\r\n    ID: string;\r\n    Titulo: string;\r\n    Anunciante: string;\r\n    Descripcion: string;\r\n    Reformado: boolean;\r\n    Telefonos: string;\r\n    Tipo: string;\r\n    Precio: number;\r\n    PrecioPorMetro: number;\r\n    Direccion: string;\r\n    Provincia: string;\r\n    Ciudad: string;\r\n    MetrosCuadrados: number;\r\n    Habitaciones: number;\r\n    Banos: number;\r\n    Parking: boolean;\r\n    SegundaMano: boolean;\r\n    ArmariosEmpotrados: boolean;\r\n    ConstruidoEn: number;\r\n    Amueblado: boolean;\r\n    CalefaccionIndividual: boolean;\r\n    CertificacionEnergetica: string;\r\n    Planta: number;\r\n    Exterior: boolean;\r\n    Interior: boolean;\r\n    Ascensor: boolean;\r\n    Fecha: Date |null;\r\n    Calle: string;\r\n    Barrio: string;\r\n    Distrito: string;\r\n    Terraza: boolean;\r\n    Trastero: boolean;\r\n    CocinaEquipada: boolean;\r\n    CocinaEquipada2: boolean;\r\n    AireAcondicionado: boolean;\r\n    Piscina: boolean;\r\n    Jardin: boolean;\r\n    MetrosCuadradosUtiles: number;\r\n    AptoParaPersonasConMovilidadReducida: boolean;\r\n    Plantas: number;\r\n    SeAdmitenMascotas: boolean;\r\n    Balcon: boolean;\r\n*/",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -236,7 +236,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/estate/filter/report?tipo=PDF",
+					"raw": "{{base_url}}/estate/filter/report?tipo=CSV",
 					"host": [
 						"{{base_url}}"
 					],
@@ -248,7 +248,7 @@
 					"query": [
 						{
 							"key": "tipo",
-							"value": "PDF"
+							"value": "CSV"
 						}
 					]
 				}
