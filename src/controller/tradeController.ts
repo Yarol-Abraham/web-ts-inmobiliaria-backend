@@ -176,7 +176,7 @@ export const filterData = async (filterD: any, type: string) => {
      if(type.toUpperCase() == "CSV")
      {
         const csvWriter = createObjectCsvWriter({
-          path: 'propiedades_filtradas.csv',
+          path: 'uploads/propiedades_filtradas.csv',
           header: Object.keys(propiedadesFiltradas[0]).map((campo) => ({ id: campo, title: campo })),
         });
 
@@ -193,7 +193,7 @@ export const filterData = async (filterD: any, type: string) => {
 
       // Generar archivo PDF
       const pdfDoc = new PDFDocument();
-      pdfDoc.pipe(fs.createWriteStream('propiedades_filtradas.pdf'));
+      pdfDoc.pipe(fs.createWriteStream('uploads/propiedades_filtradas.pdf'));
 
       (async function createTable(){
         // table

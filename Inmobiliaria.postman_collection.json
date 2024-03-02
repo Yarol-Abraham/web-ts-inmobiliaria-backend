@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "f477cfd6-4151-426d-adc5-efcf2b0ef097",
+		"name": "Inmobiliaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31067529"
+	},
+	"item": [
+		{
+			"name": "Generar Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.GPU01c1OrFXCkqQhMHqPJAK3Jx71NcsmguWGjJooFQg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/auth",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Carga Masiva",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZveGRhdGFjb21tIiwiaWF0IjoxNzA5MTgyNjk0LCJleHAiOjE3MTY5NTg2OTR9.qv4u9eX0DLEBUEdBQOhUalkIbIOP6AFbHsNXRWFVqIc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "database",
+							"type": "file",
+							"src": "/C:/Users/yabra/Downloads/resource_accommodation (1).csv"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/massive/load",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"massive",
+						"load"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar propiedades",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZveGRhdGFjb21tIiwiaWF0IjoxNzA5MzU3NzIwLCJleHAiOjE3MTcxMzM3MjB9.o2l6VDeXpo2CR0xGX5jaPjwqnvM-2pWirR4pv_63c0o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/estate/filter?priceMin=950&priceMax=1000&numRooms=3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"estate",
+						"filter"
+					],
+					"query": [
+						{
+							"key": "priceMin",
+							"value": "950",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "priceMax",
+							"value": "1000",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "numRooms",
+							"value": "3",
+							"description": "Campo Opcional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar Precio Promedio",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZveGRhdGFjb21tIiwiaWF0IjoxNzA5MTgyNjk0LCJleHAiOjE3MTY5NTg2OTR9.qv4u9eX0DLEBUEdBQOhUalkIbIOP6AFbHsNXRWFVqIc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/estate/filter/priceAverage?Latitud=40.3622039&Longitud=-3.5936001&km=0.2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"estate",
+						"filter",
+						"priceAverage"
+					],
+					"query": [
+						{
+							"key": "Latitud",
+							"value": "40.3622039",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "Longitud",
+							"value": "-3.5936001",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "km",
+							"value": "0.2",
+							"description": "Obligatorio"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar Mapa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZveGRhdGFjb21tIiwiaWF0IjoxNzA5MTgyNjk0LCJleHAiOjE3MTY5NTg2OTR9.qv4u9eX0DLEBUEdBQOhUalkIbIOP6AFbHsNXRWFVqIc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/estate/filter/map?Latitud=40.3622039&Longitud=-3.5936001&km=0.5",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"estate",
+						"filter",
+						"map"
+					],
+					"query": [
+						{
+							"key": "Latitud",
+							"value": "40.3622039",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "Longitud",
+							"value": "-3.5936001",
+							"description": "Obligatorio"
+						},
+						{
+							"key": "km",
+							"value": "0.5",
+							"description": "Obligatorio"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generar Reporte Por Filtros",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InZveGRhdGFjb21tIiwiaWF0IjoxNzA5MTgyNjk0LCJleHAiOjE3MTY5NTg2OTR9.qv4u9eX0DLEBUEdBQOhUalkIbIOP6AFbHsNXRWFVqIc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Banos\": 3,\r\n  \"Ciudad\": \"Madrid\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/estate/filter/report?tipo=PDF",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"estate",
+						"filter",
+						"report"
+					],
+					"query": [
+						{
+							"key": "tipo",
+							"value": "PDF"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Yarol\",\r\n    \"password\": \"Yarol37@37\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciar Sesion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Yarol\",\r\n    \"password\": \"Yarol37@37\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		}
+	]
+}
