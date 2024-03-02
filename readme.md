@@ -10,11 +10,11 @@ Este documento contiene información sobre la API REST
 - Prisma (Opcional)
 
 ## Variables de entorno necesarias para correr la aplicación
-NODE_ENV=development
-PORT=5000
-JWT_SECRET=y1pHXt4bjIgLpGB5mAvdm4XGm
-JWT_EXPIRES=90d
-DATABASE_URL = "mysql://<USUARIO>:<PASSWORD>@localhost:3306/<DATABASE>"
+- NODE_ENV=development
+- PORT=5000
+- JWT_SECRET=y1pHXt4bjIgLpGB5mAvdm4XGm
+- JWT_EXPIRES=90d
+- DATABASE_URL = "mysql://USUARIO:PASSWORD@localhost:3306/DATABASE"
 
 ## Iniciar Proyecto - Localmente
 
