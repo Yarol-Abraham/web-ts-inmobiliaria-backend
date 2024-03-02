@@ -1,0 +1,65 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id String @id @default(uuid()) 
+  name String @unique
+  password String
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @default(now()) @updatedAt
+  @@index([name])
+}
+
+
+model Propiedad {
+  ID String @id
+  Latitud Float
+  Longitud Float
+  Titulo String
+  Anunciante String
+  Descripcion String
+  Reformado Boolean
+  Telefonos String
+  Tipo String
+  Precio Int
+  PrecioPorMetro Float
+  Direccion String
+  Provincia String
+  Ciudad String
+  MetrosCuadrados Int
+  Habitaciones Int
+  Banos Int
+  Parking Boolean
+  SegundaMano Boolean
+  ArmariosEmpotrados Boolean
+  ConstruidoEn String
+  Amueblado Boolean
+  CalefaccionIndividual Boolean
+  CertificacionEnergetica String
+  Planta Int?
+  Exterior Boolean
+  Interior Boolean
+  Ascensor Boolean
+  Fecha DateTime?
+  Calle String
+  Barrio String
+  Distrito String
+  Terraza Boolean
+  Trastero Boolean
+  CocinaEquipada Boolean
+  CocinaEquipada2 Boolean
+  AireAcondicionado Boolean
+  Piscina Boolean
+  Jardin Boolean
+  MetrosCuadradosUtiles Int
+  AptoParaPersonasConMovilidadReducida Boolean
+  Plantas Int
+  SeAdmitenMascotas Boolean
+  Balcon Boolean
+}
