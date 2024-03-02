@@ -16,5 +16,6 @@ router.post("/massive/load", jwtMiddleware, tradeRouter.updateCSV, tradeRouter.r
 router.get("/estate/filter", jwtMiddleware, tradeRouter.filterPriceMinAndMax);
 router.get("/estate/filter/priceAverage", jwtMiddleware, tradeRouter.filterPriceAverage);
 router.get("/estate/filter/map", jwtMiddleware, tradeRouter.filterLocation);
+router.post("/estate/filter/report", jwtMiddleware, tradeRouter.filterLocationReport);
 
 export default router;

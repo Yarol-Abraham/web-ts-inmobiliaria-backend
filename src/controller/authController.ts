@@ -2,8 +2,6 @@ import { sign } from "jsonwebtoken";
 import config from '../config';
 import { correctPassword, hashPassword } from "../utils/functions";
 import prisma from '../database';
-import AppError from "../utils/appError";
-import { NextFunction } from "express";
 
 export const signToken = ()=> {
     return sign({id: config.id }, config.jwtSecret, {

@@ -1,8 +1,11 @@
 
 import csvParser from 'csv-parser';
 import CsvRow, { CsvRowExtend } from '../interface/cvsRow';
+import fs from 'fs';
+import PDFDocument from 'pdfkit-table';
 import prisma from '../database';
 import { Filter } from '../interface/filter';
+import { createObjectCsvWriter } from 'csv-writer';
 
 const sendResponse = (status: number, data: any, message: string)=> {
   return {
@@ -35,7 +38,7 @@ const readCSV = async (csvData: string) => {
           Direccion: row.Direccion || "",
           Provincia: row.Provincia || "",
           Ciudad: row.Ciudad || "",
-          MetrosCuadrados: parseInt(row['Metros cuadrados útiles'] || "0", 10),
+          MetrosCuadrados: parseInt(row['Metros cuadrados útiles'] || row.MetrosCuadrados || 0, 10),
           Habitaciones: parseInt(row.Habitaciones || "0", 10),
           Banos: parseInt(row['Baños'] || "0", 10),
           Parking: row.Parking === 'TRUE',
@@ -136,4 +139,81 @@ export const filterDataLocation = async (Latitud: number, Longitud: number, km: 
     return sendResponse(500, error, "Error in obtaining data");
   }
   
+}
+
+export const filterData = async (filterD: any, type: string) => {
+  try {
+
+    // Validar que los campos proporcionados sean válidos en el modelo Propiedad
+    const fieldsValid = Object.keys(prisma.propiedad.fields).filter((key) => key !== 'connect');
+    const fieldsFilter = Object.keys(filterD);
+
+    if (!fieldsFilter.every((field) => fieldsValid.includes(field))) {
+      return sendResponse(400, null, "`Invalid Fields`");
+    }
+
+    const where = fieldsFilter.reduce((acc: any, field: string) => {
+        acc[field] = filterD[field];
+      return acc;
+    }, {});
+
+
+    const propiedadesFiltradas = await prisma.propiedad.findMany({
+      where: where,
+      select: {
+        Titulo: true,
+        Ciudad: true,
+        Habitaciones: true,
+        MetrosCuadrados: true,
+        Balcon: true,
+        SeAdmitenMascotas: true,
+        Piscina: true,
+        Jardin: true
+      }
+    });
+
+     // Generar archivo CSV
+     if(type.toUpperCase() == "CSV")
+     {
+        const csvWriter = createObjectCsvWriter({
+          path: 'propiedades_filtradas.csv',
+          header: Object.keys(propiedadesFiltradas[0]).map((campo) => ({ id: campo, title: campo })),
+        });
+
+        csvWriter.writeRecords(propiedadesFiltradas).then(() => {
+          console.log('Archivo CSV generado');
+        });
+     }else if(type.toUpperCase() == "PDF") 
+     {
+
+      const headers = Object.keys(propiedadesFiltradas[0] || {});
+      const rows = propiedadesFiltradas.map((propiedad: any) =>
+          headers.map((campo) => `${propiedad[campo]}` == 'true' ? 'Si' :   `${propiedad[campo]}` == 'false' ? 'No' :  `${propiedad[campo]}` )
+      );
+
+      // Generar archivo PDF
+      const pdfDoc = new PDFDocument();
+      pdfDoc.pipe(fs.createWriteStream('propiedades_filtradas.pdf'));
+
+      (async function createTable(){
+        // table
+        const table = { 
+          title: 'Reporte InMobiliario',
+          headers,
+          rows,
+        };
+    
+        await pdfDoc.table(table, { });
+        pdfDoc.end();
+      })();
+
+      console.log('Archivo PDF generado');
+
+     } 
+
+    return sendResponse(200, propiedadesFiltradas, "Data successfully obtained");
+  } catch (error) {
+    console.error(error);
+    return sendResponse(500, error, "Error in obtaining data");
+  }
 }

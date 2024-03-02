@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { saveDataCSV, filterDataPriceMinAndMax, filterDataLocation, calculateAveragePrice } from "../controller/tradeController";
+import { saveDataCSV, filterDataPriceMinAndMax, filterDataLocation, calculateAveragePrice, filterData } from "../controller/tradeController";
 import catchError from "../controller/errorController";
 import AppError from "../utils/appError";
 import multer from "multer";
@@ -77,6 +77,24 @@ export async function filterLocation(req: Request, res: Response) {
             return catchError( new AppError("missing fields to make the request", 200), req, res);
         }
         let result = await filterDataLocation(Number(Latitud),Number(Longitud), Number(km));
+        return res.status(result.status).json(result);
+    } catch (error) {
+        return catchError( new AppError("Internal server error", 500), req, res);
+    }
+}
+
+export async function filterLocationReport(req: Request, res: Response) 
+{
+    try {
+
+        const { tipo } = req.query;
+
+        if(!tipo || (tipo.toString() != "CSV"  && tipo.toString() != "PDF" ) )
+        {
+            return catchError( new AppError("Type field is invalid", 200), req, res);
+        }
+
+        let result = await filterData(req.body, tipo.toString());
         return res.status(result.status).json(result);
     } catch (error) {
         return catchError( new AppError("Internal server error", 500), req, res);
